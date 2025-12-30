@@ -4,17 +4,37 @@ import "../CSS/Contact.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Col, Container, Row } from "react-bootstrap";
-
-// ✅ Reusable Enquiry Form
 import EnquiryForm from "../Components/EnquiryForm";
 
+const INITIAL_FORM_DATA = {
+  name: "",
+  contact: "",
+  location: "",
+  service: "",
+};
+
+const CONTACT_DETAILS = [
+  {
+    label: "Address",
+    value: "123, MG Road, Pune, Maharashtra, India",
+    icon: "📍",
+  },
+  { label: "Phone", value: "+91 98765 43210", icon: "📞" },
+  { label: "Email", value: "info@yourcompany.com", icon: "✉️" },
+  { label: "Working Hours", value: "Mon - Sat, 9:00 AM - 7:00 PM", icon: "🕒" },
+];
+
+const SOCIAL_LINKS = [
+  { label: "Facebook", href: "https://facebook.com" },
+  { label: "Twitter", href: "https://twitter.com" },
+  { label: "Instagram", href: "https://instagram.com" },
+];
+
+const AOS_CONFIG = { duration: 1000, once: true };
+const SCROLL_THRESHOLD = 100;
+
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    contact: "",
-    location: "",
-    service: "",
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const [showForm, setShowForm] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,20 +51,24 @@ function Contact() {
     e.preventDefault();
     console.log("Form submitted:", formData);
     alert("Enquiry submitted successfully!");
+    setFormData(INITIAL_FORM_DATA);
     setShowForm(false);
   };
 
   // ✅ AOS + Scroll Logic
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    AOS.init(AOS_CONFIG);
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleOpenForm = () => setShowForm(true);
 
   return (
     <>
@@ -75,10 +99,17 @@ function Contact() {
           {/* Left: Contact Details */}
           <Col md={6} sm={12} data-aos="fade-up">
             <h2>Contact Information</h2>
-            <p><strong>📍 Address:</strong> 123, MG Road, Pune, Maharashtra, India</p>
-            <p><strong>📞 Phone:</strong> +91 98765 43210</p>
-            <p><strong>✉️ Email:</strong> info@yourcompany.com</p>
-            <p><strong>🕒 Working Hours:</strong> Mon - Sat, 9:00 AM - 7:00 PM</p>
+            {CONTACT_DETAILS.map((item) => (
+              <p key={item.label}>
+                <strong>
+                  {item.icon} {item.label}:
+                </strong>{" "}
+                {item.value}
+              </p>
+            ))}
+            <button className="btn btn-success mt-3" onClick={handleOpenForm}>
+              Enquire Now
+            </button>
           </Col>
 
           {/* Right: Logo */}
@@ -96,17 +127,14 @@ function Contact() {
         <Row className="mt-4">
           <Col className="text-center" data-aos="fade-up">
             <h2>Connect with Us</h2>
-            <a href="https://facebook.com" target="_blank" rel="noreferrer">
-              Facebook
-            </a>{" "}
-            |{" "}
-            <a href="https://twitter.com" target="_blank" rel="noreferrer">
-              Twitter
-            </a>{" "}
-            |{" "}
-            <a href="https://instagram.com" target="_blank" rel="noreferrer">
-              Instagram
-            </a>
+            {SOCIAL_LINKS.map((link, index) => (
+              <React.Fragment key={link.label}>
+                <a href={link.href} target="_blank" rel="noreferrer">
+                  {link.label}
+                </a>
+                {index < SOCIAL_LINKS.length - 1 && " | "}
+              </React.Fragment>
+            ))}
           </Col>
         </Row>
       </Container>

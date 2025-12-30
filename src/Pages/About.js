@@ -5,16 +5,29 @@ import { Col, Container, Row } from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-// ✅ Import reusable EnquiryForm component
 import EnquiryForm from "../Components/EnquiryForm";
 
+const INITIAL_FORM_DATA = {
+  name: "",
+  contact: "",
+  location: "",
+  service: "",
+};
+
+const WORK_IMAGES = [
+  { file: "work1.jpg", alt: "Our Work 1" },
+  { file: "work2.jpg", alt: "Our Work 2" },
+  { file: "work3.jpg", alt: "Our Work 3" },
+  { file: "work4.jpg", alt: "Our Work 4" },
+  { file: "work5.jpg", alt: "Our Work 5" },
+  { file: "work6.jpg", alt: "Our Work 6" },
+];
+
+const AOS_CONFIG = { duration: 1000, once: true };
+const SCROLL_THRESHOLD = 100;
+
 function About() {
-  const [formData, setFormData] = useState({
-    name: "",
-    contact: "",
-    location: "",
-    service: "",
-  });
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const [showForm, setShowForm] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,20 +44,25 @@ function About() {
     e.preventDefault();
     console.log("Form submitted:", formData);
     alert("Enquiry submitted successfully!");
+    setFormData(INITIAL_FORM_DATA);
     setShowForm(false);
   };
 
   // ✅ AOS + scroll detection
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    AOS.init(AOS_CONFIG);
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
     };
+
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleOpenForm = () => setShowForm(true);
 
   return (
     <>
@@ -85,18 +103,20 @@ function About() {
             <div className="ceo-info">
               <h2>Our Founder & CEO</h2>
               <p>
-                <strong>Mr. Shashank Shinde</strong>, our visionary founder and CEO,
-                established this organization with the mission of providing quality
-                healthcare at home. With over 6 years of experience, he has dedicated
-                his career to improving elder care and patient well-being.
+                <strong>Mr. Shashank Shinde</strong>, our visionary founder and
+                CEO, established this organization with the mission of providing
+                quality healthcare at home. With over 6 years of experience, he
+                has dedicated his career to improving elder care and patient
+                well-being.
               </p>
               <p>
-                Under his leadership, we have built a trusted team of professionals
-                delivering compassionate, reliable, and personalized care.
+                Under his leadership, we have built a trusted team of
+                professionals delivering compassionate, reliable, and
+                personalized care.
               </p>
               <button
                 className="btn btn-success mt-3"
-                onClick={() => setShowForm(true)}
+                onClick={handleOpenForm}
               >
                 Know More
               </button>
@@ -116,26 +136,19 @@ function About() {
         </h2>
 
         <Row>
-          {[
-            "work1.jpg",
-            "work2.jpg",
-            "work3.jpg",
-            "work4.jpg",
-            "work5.jpg",
-            "work6.jpg",
-          ].map((img, index) => (
+          {WORK_IMAGES.map((img, index) => (
             <Col
               md={4}
               sm={6}
               xs={12}
               className="mb-4"
-              key={index}
+              key={img.file}
               data-aos="zoom-in"
               data-aos-delay={index * 100}
             >
               <img
-                src={require(`../Images/${img}`)}
-                alt={`Our Work ${index + 1}`}
+                src={require(`../Images/${img.file}`)}
+                alt={img.alt}
                 className="img-fluid rounded shadow"
                 style={{
                   width: "100%",

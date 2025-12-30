@@ -11,43 +11,43 @@ import geriatricImg from "../Images/work5.jpg";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-// ✅ Reusable Enquiry Form
 import EnquiryForm from "../Components/EnquiryForm";
 
-function Services() {
-  const services = [
-    {
-      title: "Nursing Care",
-      img: nursingImg,
-      desc:
-        "Professional nursing services by trained staff, offering medical and emotional care at home for recovery and chronic illnesses.",
-    },
-    {
-      title: "Post Operative Care",
-      img: postopImg,
-      desc:
-        "Comprehensive post-surgery support including wound care, mobility assistance, and medication management for safe healing.",
-    },
-    {
-      title: "Personal Care",
-      img: personalImg,
-      desc:
-        "Assistance with daily hygiene, grooming, dressing, and basic personal needs with dignity and compassion.",
-    },
-    {
-      title: "Geriatric Care",
-      img: geriatricImg,
-      desc:
-        "Holistic elderly care focused on comfort, companionship, and routine health monitoring for senior citizens.",
-    },
-  ];
+const INITIAL_FORM_DATA = {
+  name: "",
+  contact: "",
+  location: "",
+  service: "",
+};
 
-  const [formData, setFormData] = useState({
-    name: "",
-    contact: "",
-    location: "",
-    service: "",
-  });
+const SERVICES = [
+  {
+    title: "Nursing Care",
+    img: nursingImg,
+    desc: "Professional nursing services by trained staff, offering medical and emotional care at home for recovery and chronic illnesses.",
+  },
+  {
+    title: "Post Operative Care",
+    img: postopImg,
+    desc: "Comprehensive post-surgery support including wound care, mobility assistance, and medication management for safe healing.",
+  },
+  {
+    title: "Personal Care",
+    img: personalImg,
+    desc: "Assistance with daily hygiene, grooming, dressing, and basic personal needs with dignity and compassion.",
+  },
+  {
+    title: "Geriatric Care",
+    img: geriatricImg,
+    desc: "Holistic elderly care focused on comfort, companionship, and routine health monitoring for senior citizens.",
+  },
+];
+
+const AOS_CONFIG = { duration: 1000, once: true };
+const SCROLL_THRESHOLD = 100;
+
+function Services() {
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
   const [showForm, setShowForm] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -64,20 +64,29 @@ function Services() {
     e.preventDefault();
     console.log("Form submitted:", formData);
     alert("Enquiry submitted successfully!");
+    setFormData(INITIAL_FORM_DATA);
     setShowForm(false);
   };
 
   // ✅ AOS + Scroll Logic
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    AOS.init(AOS_CONFIG);
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleOpenForm = () => setShowForm(true);
+
+  const handleSelectService = (serviceTitle) => {
+    setFormData((prev) => ({ ...prev, service: serviceTitle }));
+    handleOpenForm();
+  };
 
   return (
     <>
@@ -113,9 +122,9 @@ function Services() {
           </h2>
 
           <Row className="g-4">
-            {services.map((service, index) => (
+            {SERVICES.map((service, index) => (
               <Col
-                key={index}
+                key={service.title}
                 md={6}
                 lg={3}
                 sm={12}
@@ -139,13 +148,7 @@ function Services() {
                     <Button
                       variant="primary"
                       className="w-100"
-                      onClick={() => {
-                        setFormData((prev) => ({
-                          ...prev,
-                          service: service.title,
-                        }));
-                        setShowForm(true);
-                      }}
+                      onClick={() => handleSelectService(service.title)}
                     >
                       Enquire Now
                     </Button>

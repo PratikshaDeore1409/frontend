@@ -1,10 +1,40 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedin,
+} from "react-icons/fa";
 import "../CSS/Footer.css";
 
+const QUICK_LINKS = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About Us" },
+  { to: "/services", label: "Services" },
+  { to: "/contact", label: "Contact" },
+];
+
+const SOCIAL_LINKS = [
+  { href: "https://facebook.com", icon: <FaFacebookF aria-label="Facebook" /> },
+  { href: "https://twitter.com", icon: <FaTwitter aria-label="Twitter" /> },
+  {
+    href: "https://instagram.com",
+    icon: <FaInstagram aria-label="Instagram" />,
+  },
+  { href: "https://linkedin.com", icon: <FaLinkedin aria-label="LinkedIn" /> },
+];
+
+const CONTACT_LINES = [
+  "📍 123 Health Street, City, India",
+  "📞 +91 98765 43210",
+  "✉️ info@healthcare.com",
+];
+
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="footer">
       <Container>
@@ -23,10 +53,11 @@ function Footer() {
           <Col md={4} sm={12} className="mb-4">
             <h5>Quick Links</h5>
             <ul className="footer-links">
-              <li><NavLink to="/">Home</NavLink></li>
-              <li><NavLink to="/about">About Us</NavLink></li>
-              <li><NavLink to="/services">Services</NavLink></li>
-              <li><NavLink to="/contact">Contact</NavLink></li>
+              {QUICK_LINKS.map((link) => (
+                <li key={link.to}>
+                  <NavLink to={link.to}>{link.label}</NavLink>
+                </li>
+              ))}
             </ul>
           </Col>
 
@@ -34,17 +65,26 @@ function Footer() {
           <Col md={4} sm={12}>
             <h5>Contact Us</h5>
             <p>
-              📍 123 Health Street, City, India <br />
-              📞 +91 98765 43210 <br />
-              ✉️ info@healthcare.com
+              {CONTACT_LINES.map((line) => (
+                <React.Fragment key={line}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
             </p>
             <div className="footer-socials">
-  <a href="https://facebook.com" target="_blank" rel="noreferrer"><FaFacebookF /></a>
-  <a href="https://twitter.com" target="_blank" rel="noreferrer"><FaTwitter /></a>
-  <a href="https://instagram.com" target="_blank" rel="noreferrer"><FaInstagram /></a>
-  <a href="https://linkedin.com" target="_blank" rel="noreferrer"><FaLinkedin /></a>
-</div>
-
+              {SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.icon.props["aria-label"]}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </Col>
         </Row>
 
@@ -52,7 +92,7 @@ function Footer() {
         <Row>
           <Col className="text-center">
             <p className="mb-0">
-              © {new Date().getFullYear()} Healthcare. All Rights Reserved.
+              © {currentYear} Healthcare. All Rights Reserved.
             </p>
           </Col>
         </Row>

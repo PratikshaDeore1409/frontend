@@ -49,7 +49,9 @@ function EnquiryForm({
           >
             <option value="">Select Medical Service</option>
             <option value="Nursing Care">Nursing Care</option>
-            <option value="Physician Consultation">Physician Consultation</option>
+            <option value="Physician Consultation">
+              Physician Consultation
+            </option>
             <option value="Laboratory Services">Laboratory Services</option>
             <option value="Post-operative Care">Post-operative Care</option>
             <option value="Personal Care">Personal Care</option>
@@ -61,9 +63,7 @@ function EnquiryForm({
 
       {/* Mobile Button */}
       <div className={`mobile-form-button ${isScrolled ? "fixed" : ""}`}>
-        <button onClick={() => setShowForm(true)}>
-          Open Enquiry Form
-        </button>
+        <button onClick={() => setShowForm(true)}>Open Enquiry Form</button>
       </div>
 
       {/* Mobile Popup */}
@@ -107,7 +107,9 @@ function EnquiryForm({
               >
                 <option value="">Select Medical Service</option>
                 <option value="Nursing Care">Nursing Care</option>
-                <option value="Physician Consultation">Physician Consultation</option>
+                <option value="Physician Consultation">
+                  Physician Consultation
+                </option>
                 <option value="Laboratory Services">Laboratory Services</option>
                 <option value="Post-operative Care">Post-operative Care</option>
                 <option value="Personal Care">Personal Care</option>

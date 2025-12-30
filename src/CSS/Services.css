@@ -1,0 +1,31 @@
+.services-section {
+  background-color: #f8f9fa;
+}
+
+.service-card {
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.service-img {
+  height: 120px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+button.btn-primary {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+  transform: scale(1.03);
+}

@@ -27,8 +27,8 @@ const SOCIAL_LINKS = [
 ];
 
 const CONTACT_LINES = [
-  "📍 123 Health Street, City, India",
-  "📞 +91 98765 43210",
+  "📍 3, Trimurty society, Deopur, Dhule",
+  "📞 +91 9373119075, +91 7058325196",
   "✉️ info@healthcare.com",
 ];
 
@@ -43,9 +43,9 @@ function Footer() {
           <Col md={4} sm={12} className="mb-4">
             <h5>About Us</h5>
             <p>
-              We are dedicated to providing professional healthcare services at
-              your doorstep. Compassion, safety, and quality care are at the
-              heart of everything we do.
+              We are dedicated to provide Hygienic and qualitative professional
+              care servicee at doorstep. Compassion, safety and quality care are
+              the heart of everything we do.
             </p>
           </Col>
 

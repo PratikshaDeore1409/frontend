@@ -132,12 +132,12 @@ function Services() {
                 data-aos-delay={index * 100}
               >
                 <Card className="service-card shadow h-100 text-center border-0">
-                  <Card.Img
+                  {/* <Card.Img
                     variant="top"
                     src={service.img}
                     alt={service.title}
                     className="img-fluid service-img"
-                  />
+                  /> */}
                   <Card.Body>
                     <Card.Title className="fw-semibold">
                       {service.title}
@@ -145,13 +145,13 @@ function Services() {
                     <Card.Text className="text-secondary small">
                       {service.desc}
                     </Card.Text>
-                    <Button
+                    {/* <Button
                       variant="primary"
                       className="w-100"
                       onClick={() => handleSelectService(service.title)}
                     >
                       Enquire Now
-                    </Button>
+                    </Button> */}
                   </Card.Body>
                 </Card>
               </Col>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../CSS/Home.css";
 import backgroundImage from "../Images/seniorCare.webp";
 import { Col, Container, Row, Card } from "react-bootstrap";
@@ -20,42 +20,42 @@ const INITIAL_FORM_DATA = {
 
 const TEAM_MEMBERS = [
   {
-    name: "Dr. Sarah Lee",
-    role: "Chief Medical Officer",
+    name: "Mr. Vaibhav Chavan",
+    role: "Co-founder & Chief Medical Officer",
     image: require("../Images/user.jpeg"),
   },
   {
-    name: "Dr. John Smith",
+    name: "Dr. Chetana Jadhav",
     role: "Senior Physician",
     image: require("../Images/user.jpeg"),
   },
   {
-    name: "Nurse Emily Clark",
+    name: "Ms. Vaishanavi Kambri",
     role: "Head Nurse",
     image: require("../Images/user.jpeg"),
   },
   {
-    name: "Michael Johnson",
-    role: "Care Coordinator",
+    name: "Mr. Pratik Ghorpade",
+    role: "Head Care Coordinator",
     image: require("../Images/user.jpeg"),
   },
 ];
 
 const REVIEWS = [
   {
-    name: "Alice",
+    name: "Satish",
     text: "Amazing service! The nurses were so caring and professional.",
   },
   {
-    name: "David",
+    name: "Umesh",
     text: "Highly recommend! Great doctors and excellent support team.",
   },
   {
-    name: "Sophia",
+    name: "Shital",
     text: "My family is very happy with the care provided here.",
   },
-  { name: "James", text: "Excellent healthcare at home. Very satisfied!" },
-  { name: "Emma", text: "Best elder care service we have ever experienced." },
+  { name: "Dhruvi", text: "Excellent healthcare at home. Very satisfied!" },
+  { name: "Shruti", text: "Best elder care service we have ever experienced." },
 ];
 
 const TEAM_SLIDER_SETTINGS = {
@@ -95,6 +95,7 @@ function Home() {
 
   const [showForm, setShowForm] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -125,6 +126,27 @@ function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Track viewport size to decide which form variant to show
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateIsMobile();
+    mediaQuery.addEventListener("change", updateIsMobile);
+    return () => mediaQuery.removeEventListener("change", updateIsMobile);
+  }, []);
+
+  // Auto open enquiry form on mobile after initial load (per page load)
+  useEffect(() => {
+    if (!isMobile) return undefined;
+
+    const timerId = setTimeout(() => {
+      setShowForm(true);
+    }, 2000);
+
+    return () => clearTimeout(timerId);
+  }, [isMobile]);
+
   const handleOpenForm = () => setShowForm(true);
 
   return (
@@ -147,6 +169,7 @@ function Home() {
           showForm={showForm}
           setShowForm={setShowForm}
           isScrolled={isScrolled}
+          isMobile={isMobile}
         />
       </div>
 
@@ -170,8 +193,8 @@ function Home() {
               </p>
               <ul>
                 <li>✔ Nursing & Personal Care</li>
-                <li>✔ Experienced Physicians</li>
-                <li>✔ 24/7 Support</li>
+                <li>✔ Experienced Nurses & Physicians</li>
+                <li>✔ 24/7 Service</li>
               </ul>
               <button className="btn btn-primary mt-3" onClick={handleOpenForm}>
                 Learn More
@@ -197,9 +220,17 @@ function Home() {
             <div className="ceo-info">
               <h2>Meet Our Founder & CEO</h2>
               <p>
-                <strong>Mr. Shashank Shinde</strong> has over 6 years of
-                experience in healthcare and is dedicated to improving elder
-                care.
+                <strong>Mr. Shashank Shinde</strong>, our visionary founder and
+                CEO, established this organization with the mission of providing
+                quality healthcare at home. With over 6 years of experience in
+                the healthcare industry, <strong>Mr. Shashank </strong> has
+                dedicated his life to improving elder care and patient
+                well-being.
+              </p>
+              <p>
+                Under his leadership, we have built a trusted team of
+                professionals who are passionate about delivering compassionate,
+                reliable, and personalized care.
               </p>
               <button className="btn btn-success mt-3" onClick={handleOpenForm}>
                 Know More

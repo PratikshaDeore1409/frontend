@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import "../CSS/Services.css";
 import backgroundImage from "../Images/services.jpeg";
 
 import nursingImg from "../Images/work1.jpg";
-import postopImg from "../Images/work3.jpg";
-import personalImg from "../Images/work4.jpg";
-import geriatricImg from "../Images/work5.jpg";
+import postopImg from "../Images/work2.jpg";
+import personalImg from "../Images/work3.jpg";
+import geriatricImg from "../Images/work4.jpg";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 import EnquiryForm from "../Components/EnquiryForm";
+import { openEnquiryForm } from "../utils/enquiry";
 
 const INITIAL_FORM_DATA = {
   name: "",
@@ -44,13 +45,9 @@ const SERVICES = [
 ];
 
 const AOS_CONFIG = { duration: 1000, once: true };
-const SCROLL_THRESHOLD = 100;
 
 function Services() {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
-
-  const [showForm, setShowForm] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,32 +62,29 @@ function Services() {
     console.log("Form submitted:", formData);
     alert("Enquiry submitted successfully!");
     setFormData(INITIAL_FORM_DATA);
-    setShowForm(false);
   };
 
-  // ✅ AOS + Scroll Logic
   useEffect(() => {
-    AOS.init(AOS_CONFIG);
+    const shouldReduceMotion = window.matchMedia(
+      "(max-width: 768px), (prefers-reduced-motion: reduce)"
+    ).matches;
 
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    AOS.init({
+      ...AOS_CONFIG,
+      duration: shouldReduceMotion ? 450 : AOS_CONFIG.duration,
+      disable: shouldReduceMotion,
+    });
   }, []);
 
-  const handleOpenForm = () => setShowForm(true);
-
   const handleSelectService = (serviceTitle) => {
-    setFormData((prev) => ({ ...prev, service: serviceTitle }));
-    handleOpenForm();
+    openEnquiryForm({
+      serviceTitle,
+      setDesktopFormData: setFormData,
+    });
   };
 
   return (
     <>
-      {/* ================= HERO SECTION ================= */}
       <div
         className="home-container"
         style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -100,63 +94,63 @@ function Services() {
           <p className="my-2">Dedicated to safety</p>
         </div>
 
-        {/* ✅ Reusable Enquiry Form */}
         <EnquiryForm
           formData={formData}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
-          showForm={showForm}
-          setShowForm={setShowForm}
-          isScrolled={isScrolled}
         />
       </div>
 
-      {/* ================= SERVICES SECTION ================= */}
       <section className="services-section py-5">
         <Container>
-          <h2
-            className="text-center mb-4 fw-bold text-primary"
-            data-aos="fade-up"
-          >
+          <h2 className="text-center mb-4 fw-bold" data-aos="fade-up">
             Our Services
           </h2>
 
-          <Row className="g-4">
+          <div className="services-list">
             {SERVICES.map((service, index) => (
-              <Col
+              <Row
                 key={service.title}
-                md={6}
-                lg={3}
-                sm={12}
-                data-aos="zoom-in"
-                data-aos-delay={index * 100}
+                className="service-feature-row align-items-center g-4"
+                data-aos="fade-up"
+                data-aos-delay={index * 80}
               >
-                <Card className="service-card shadow h-100 text-center border-0">
-                  {/* <Card.Img
-                    variant="top"
-                    src={service.img}
-                    alt={service.title}
-                    className="img-fluid service-img"
-                  /> */}
-                  <Card.Body>
-                    <Card.Title className="fw-semibold">
-                      {service.title}
-                    </Card.Title>
-                    <Card.Text className="text-secondary small">
-                      {service.desc}
-                    </Card.Text>
-                    {/* <Button
+                <Col
+                  lg={6}
+                  md={12}
+                  className={index % 2 === 0 ? "order-lg-1" : "order-lg-2"}
+                >
+                  <div className="service-feature-image-wrap">
+                    <img
+                      src={service.img}
+                      alt={service.title}
+                      className="service-feature-image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                </Col>
+
+                <Col
+                  lg={6}
+                  md={12}
+                  className={index % 2 === 0 ? "order-lg-2" : "order-lg-1"}
+                >
+                  <div className="service-feature-content">
+                    <h3>{service.title}</h3>
+                    <p>{service.desc}</p>
+                    <Button
                       variant="primary"
-                      className="w-100"
+                      className="service-enquire-btn"
                       onClick={() => handleSelectService(service.title)}
                     >
                       Enquire Now
-                    </Button> */}
-                  </Card.Body>
-                </Card>
-              </Col>
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
             ))}
-          </Row>
+          </div>
         </Container>
       </section>
     </>

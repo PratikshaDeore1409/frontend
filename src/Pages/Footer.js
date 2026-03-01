@@ -1,13 +1,9 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import "../CSS/Footer.css";
+import { FOOTER_CONTACT_LINES } from "../data/contactInfo";
 
 const QUICK_LINKS = [
   { to: "/", label: "Home" },
@@ -26,12 +22,6 @@ const SOCIAL_LINKS = [
   { href: "https://linkedin.com", icon: <FaLinkedin aria-label="LinkedIn" /> },
 ];
 
-const CONTACT_LINES = [
-  "📍 3, Trimurty society, Deopur, Dhule",
-  "📞 +91 9373119075, +91 7058325196",
-  "✉️ info@healthcare.com",
-];
-
 function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -39,17 +29,15 @@ function Footer() {
     <footer className="footer">
       <Container>
         <Row>
-          {/* Column 1: About */}
           <Col md={4} sm={12} className="mb-4">
             <h5>About Us</h5>
             <p>
-              We are dedicated to provide Hygienic and qualitative professional
-              care servicee at doorstep. Compassion, safety and quality care are
+              We are dedicated to provide hygienic and qualitative professional
+              care service at doorstep. Compassion, safety and quality care are
               the heart of everything we do.
             </p>
           </Col>
 
-          {/* Column 2: Quick Links */}
           <Col md={4} sm={12} className="mb-4">
             <h5>Quick Links</h5>
             <ul className="footer-links">
@@ -61,17 +49,16 @@ function Footer() {
             </ul>
           </Col>
 
-          {/* Column 3: Contact + Socials */}
           <Col md={4} sm={12}>
             <h5>Contact Us</h5>
-            <p>
-              {CONTACT_LINES.map((line) => (
-                <React.Fragment key={line}>
-                  {line}
-                  <br />
-                </React.Fragment>
+            <div className="footer-contact-lines">
+              {FOOTER_CONTACT_LINES.map((item) => (
+                <p key={item.label} className="footer-contact-item">
+                  <item.Icon className="footer-contact-icon" aria-hidden="true" />
+                  <span>{item.value}</span>
+                </p>
               ))}
-            </p>
+            </div>
             <div className="footer-socials">
               {SOCIAL_LINKS.map((social) => (
                 <a
@@ -91,8 +78,9 @@ function Footer() {
         <hr />
         <Row>
           <Col className="text-center">
+            <p className="footer-service-line mb-2">Serving Nashik and Dhule.</p>
             <p className="mb-0">
-              © {currentYear} Healthcare. All Rights Reserved.
+              &copy; {currentYear} SHARADA DOORSTEP SERVICES. All Rights Reserved.
             </p>
           </Col>
         </Row>

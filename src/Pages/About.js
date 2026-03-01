@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../CSS/Home.css";
 import backgroundImage from "../Images/about.webp";
 import { Col, Container, Row } from "react-bootstrap";
@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 import EnquiryForm from "../Components/EnquiryForm";
+import { openEnquiryForm } from "../utils/enquiry";
 
 const INITIAL_FORM_DATA = {
   name: "",
@@ -24,13 +25,9 @@ const WORK_IMAGES = [
 ];
 
 const AOS_CONFIG = { duration: 1000, once: true };
-const SCROLL_THRESHOLD = 100;
 
 function About() {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
-
-  const [showForm, setShowForm] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,28 +42,25 @@ function About() {
     console.log("Form submitted:", formData);
     alert("Enquiry submitted successfully!");
     setFormData(INITIAL_FORM_DATA);
-    setShowForm(false);
   };
 
-  // ✅ AOS + scroll detection
   useEffect(() => {
-    AOS.init(AOS_CONFIG);
+    const shouldReduceMotion = window.matchMedia(
+      "(max-width: 768px), (prefers-reduced-motion: reduce)"
+    ).matches;
 
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
-    };
-
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    AOS.init({
+      ...AOS_CONFIG,
+      duration: shouldReduceMotion ? 450 : AOS_CONFIG.duration,
+      disable: shouldReduceMotion,
+    });
   }, []);
 
-  const handleOpenForm = () => setShowForm(true);
+  const handleOpenForm = () =>
+    openEnquiryForm({ setDesktopFormData: setFormData });
 
   return (
     <>
-      {/* ================= HERO SECTION ================= */}
       <div
         className="home-container"
         style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -74,34 +68,40 @@ function About() {
         <div className="home-text" data-aos="fade-right">
           <h1>Best Service At Home</h1>
           <p>Better manage the well-being of elders</p>
+          <p className="hero-service-note">
+            Services available in Nashik and Dhule.
+          </p>
         </div>
 
-        {/* ✅ Reusable Enquiry Form */}
         <EnquiryForm
           formData={formData}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
-          showForm={showForm}
-          setShowForm={setShowForm}
-          isScrolled={isScrolled}
         />
       </div>
 
-      {/* ================= CEO SECTION ================= */}
       <Container className="my-5 ceo-section" data-aos="zoom-in">
+        <h2 className="text-center mb-4 ceo-section-title">Our Founder & CEO</h2>
         <Row className="align-items-center">
-          <Col md={6} sm={12} className="text-center" data-aos="fade-right">
+          <Col
+            md={6}
+            sm={12}
+            className="d-flex justify-content-center text-center order-1 order-md-1"
+            data-aos="fade-right"
+          >
             <img
               src={require("../Images/shk.jpg")}
               alt="Founder & CEO"
               className="img-fluid rounded-circle shadow"
-              style={{ maxWidth: "350px" }}
+              loading="lazy"
+              decoding="async"
+              style={{ maxWidth: "350px", margin: "0 auto", display: "block" }}
             />
           </Col>
 
-          <Col md={6} sm={12} data-aos="fade-left">
+          <Col md={6} sm={12} className="order-2 order-md-2" data-aos="fade-left">
             <div className="ceo-info">
-              <h2>Our Founder & CEO</h2>
+              <h2 className="ceo-inline-heading">Our Founder & CEO</h2>
               <p>
                 <strong>Mr. Shashank Shinde</strong>, our visionary founder and
                 CEO, established this organization with the mission of providing
@@ -125,8 +125,7 @@ function About() {
         </Row>
       </Container>
 
-      {/* ================= OUR WORK SECTION ================= */}
-      <Container className="my-5">
+      <Container className="my-5 our-work">
         <h2
           className="text-center mb-4"
           data-aos="fade-up"
@@ -141,7 +140,7 @@ function About() {
               md={4}
               sm={6}
               xs={12}
-              className="mb-4"
+              className="mb-4 work-item-col"
               key={img.file}
               data-aos="zoom-in"
               data-aos-delay={index * 100}
@@ -149,12 +148,9 @@ function About() {
               <img
                 src={require(`../Images/${img.file}`)}
                 alt={img.alt}
-                className="img-fluid rounded shadow"
-                style={{
-                  width: "100%",
-                  height: "300px",
-                  objectFit: "cover",
-                }}
+                className="img-fluid rounded shadow work-img"
+                loading="lazy"
+                decoding="async"
               />
             </Col>
           ))}

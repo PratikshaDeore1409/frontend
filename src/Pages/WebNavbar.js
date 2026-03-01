@@ -7,7 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-import logo from "../Images/logo1.png";
+import logo from "../Images/logo1 (2).png";
 import "../CSS/WebNavbar.css";
 import nursingImg from "../Images/work1.jpg";
 import postopImg from "../Images/work2.jpg";
@@ -47,6 +47,7 @@ function WebNavbar() {
   const [isSticky, setIsSticky] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedService, setSelectedService] = useState("");
+  const [expanded, setExpanded] = useState(false);
 
   const navigate = useNavigate();
 
@@ -54,6 +55,11 @@ function WebNavbar() {
   const handleShow = (service) => {
     setSelectedService(service);
     setShowModal(true);
+  };
+  const handleLearnMore = () => {
+    setShowModal(false);
+    setExpanded(false);
+    navigate("/services");
   };
 
   useEffect(() => {
@@ -72,16 +78,25 @@ function WebNavbar() {
         style={{ backgroundColor: NAVBAR_BG }}
         variant="light"
         className={`custom-navbar ${isSticky ? "sticky" : ""}`}
+        expanded={expanded}
       >
         <Container>
           <Navbar.Brand as={NavLink} to="/">
             <img src={logo} alt="Logo" className="navbar-logo img-fluid-logo" />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={() => setExpanded(expanded ? false : "expanded")}
+          />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               {NAV_LINKS.map((link) => (
-                <Nav.Link key={link.to} as={NavLink} to={link.to}>
+                <Nav.Link
+                  key={link.to}
+                  as={NavLink}
+                  to={link.to}
+                  onClick={() => setExpanded(false)}
+                >
                   {link.label}
                 </Nav.Link>
               ))}
@@ -103,7 +118,7 @@ function WebNavbar() {
 
       <Modal show={showModal} onHide={handleClose} centered animation size="md">
         <Modal.Header closeButton className="bg-light">
-          <Modal.Title className="fw-bold text-primary">
+          <Modal.Title className="fw-bold modal-service-title">
             {selectedService}
           </Modal.Title>
         </Modal.Header>
@@ -116,12 +131,13 @@ function WebNavbar() {
                 alt={selectedService}
                 className="img-fluid rounded shadow-sm mb-3"
                 style={{
-                  maxHeight: "250px",
-                  objectFit: "cover",
+                  maxHeight: "300px",
+                  width: "100%",
+                  objectFit: "contain",
                   borderRadius: "12px",
                 }}
               />
-              <p className="text-secondary">
+              <p className="modal-service-desc">
                 {SERVICE_INFO[selectedService].desc}
               </p>
             </>
@@ -133,7 +149,7 @@ function WebNavbar() {
             Close
           </Button>
           {selectedService && (
-            <Button variant="primary" onClick={() => navigate("/services")}>
+            <Button className="modal-learn-more-btn" onClick={handleLearnMore}>
               Learn More
             </Button>
           )}

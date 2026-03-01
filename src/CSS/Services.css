@@ -1,31 +1,117 @@
 .services-section {
-  background-color: #f8f9fa;
+  background-color: var(--bg-light);
+  padding: 56px 0;
 }
 
-.service-card {
-  border-radius: 15px;
-  transition: all 0.3s ease;
+@media (max-width: 768px) {
+  .services-section {
+    padding: 36px 12px;
+  }
+}
+
+.services-section h2 {
+  color: var(--primary-color);
+  margin: 0 auto 2.75rem;
+  padding: 0 18px 14px;
+  font-weight: 700;
+  position: relative;
+  display: block;
+  width: fit-content;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.services-list {
+  display: grid;
+  gap: 24px;
+  padding: 0 12px;
+}
+
+.service-feature-row {
+  background: #ffffff;
+  border: 1px solid #e8edf5;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+  margin: 0 !important;
+}
+
+.service-feature-image-wrap {
+  border-radius: 14px;
   overflow: hidden;
+  background: #f5f7fb;
 }
 
-.service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+.service-feature-image {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: contain;
+  display: block;
 }
 
-.service-img {
-  height: 120px;
-  object-fit: cover;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+.service-feature-content {
+  padding: 8px 6px;
+  text-align: left;
 }
 
-button.btn-primary {
+.service-feature-content h3 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.service-feature-content p {
+  color: #5f6b7a;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.service-enquire-btn {
   border-radius: 8px;
-  transition: all 0.3s ease;
+  padding: 10px 18px;
+  font-weight: 600;
 }
 
-button.btn-primary:hover {
-  background-color: #0056b3;
-  transform: scale(1.03);
+@media (max-width: 991px) {
+  .service-feature-row {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .services-list {
+    gap: 18px;
+    padding: 0 8px;
+  }
+
+  .services-section h2 {
+    margin-bottom: 2.2rem;
+    padding: 0 10px 12px;
+  }
+
+  .service-feature-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .service-feature-content {
+    text-align: center;
+  }
+}
+
+.services-section .btn-primary {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.services-section .btn-primary:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }

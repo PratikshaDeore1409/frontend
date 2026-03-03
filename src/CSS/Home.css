@@ -215,6 +215,18 @@
   color: var(--primary-color);
 }
 
+.ceo-photo-frame {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ceo-photo {
+  width: min(100%, 350px);
+  margin: 0 auto;
+  display: block;
+}
+
 .about-logo {
   width: 100%;
   max-width: 180px;
@@ -454,6 +466,18 @@
 
   .ceo-inline-heading {
     display: none;
+  }
+
+  .ceo-photo-frame {
+    padding: 0 12px;
+  }
+
+  .ceo-photo {
+    max-width: 280px;
+    padding: 6px;
+    border: 1px solid #d5e3f6;
+    background: #fff;
+    margin: 0 auto 4px;
   }
 
   .ceo-info {

@@ -12,14 +12,15 @@ function CeoSection({ onOpenForm }) {
           className="text-center order-1 order-md-1"
           data-aos="fade-right"
         >
-          <img
-            src={ceoImage}
-            alt="Founder & CEO"
-            className="img-fluid shadow rounded-3"
-            loading="lazy"
-            decoding="async"
-            style={{ maxWidth: "350px", margin: "0 auto", display: "block" }}
-          />
+          <div className="ceo-photo-frame">
+            <img
+              src={ceoImage}
+              alt="Founder & CEO"
+              className="img-fluid shadow rounded-3 ceo-photo"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </Col>
 
         <Col

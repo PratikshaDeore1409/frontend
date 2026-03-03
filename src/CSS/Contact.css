@@ -77,6 +77,13 @@
   color: var(--primary-color);
 }
 
+.contact-main-row {
+  --bs-gutter-x: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: clamp(1.4rem, 3vw, 2.4rem) clamp(1rem, 3vw, 1.8rem);
+}
+
 .contact-section p {
   font-size: 1.1rem;
   color: var(--text-dark);
@@ -194,8 +201,8 @@
     display: none;
   }
 
-  .contact-section .row {
-    padding: 1.5rem 1rem !important;
+  .contact-main-row {
+    padding: 1.25rem 0.7rem;
   }
 
   .contact-section p {

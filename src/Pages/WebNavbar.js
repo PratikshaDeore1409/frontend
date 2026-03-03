@@ -81,7 +81,7 @@ function WebNavbar() {
         expanded={expanded}
       >
         <Container>
-          <Navbar.Brand as={NavLink} to="/">
+          <Navbar.Brand as={NavLink} to="/" onClick={() => setExpanded(false)}>
             <img src={logo} alt="Logo" className="navbar-logo img-fluid-logo" />
           </Navbar.Brand>
           <Navbar.Toggle

@@ -24,6 +24,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 * {
@@ -41,7 +42,12 @@ body {
   background-color: #fff;
   color: var(--text-dark);
   line-height: 1.6;
-  overflow-x: clip;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 h1,

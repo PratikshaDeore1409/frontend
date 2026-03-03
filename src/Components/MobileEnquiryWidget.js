@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FiPhoneCall } from "react-icons/fi";
+import { FiPhoneCall, FiX } from "react-icons/fi";
 import "../CSS/MobileEnquiryWidget.css";
 import { MOBILE_ENQUIRY_EVENT, MOBILE_QUERY } from "../utils/enquiry";
 
@@ -38,7 +38,13 @@ function MobileEnquiryWidget() {
   }, []);
 
   useEffect(() => {
-    if (!isMobile) setShowForm(false);
+    if (!isMobile) {
+      setShowForm(false);
+      return;
+    }
+
+    // Auto-open on every fresh visit/reload for mobile users.
+    setShowForm(true);
   }, [isMobile]);
 
   useEffect(() => {
@@ -58,6 +64,19 @@ function MobileEnquiryWidget() {
       window.removeEventListener(MOBILE_ENQUIRY_EVENT, handleOpenRequest);
     };
   }, []);
+
+  useEffect(() => {
+    if (!showForm) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setShowForm(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showForm]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,8 +111,22 @@ function MobileEnquiryWidget() {
       )}
 
       {showForm && (
-        <div className="mobile-enquiry-overlay">
-          <div className="mobile-enquiry-form">
+        <div
+          className="mobile-enquiry-overlay"
+          onClick={() => setShowForm(false)}
+        >
+          <div
+            className="mobile-enquiry-form"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="mobile-enquiry-close-icon"
+              onClick={() => setShowForm(false)}
+              aria-label="Close enquiry form"
+            >
+              <FiX />
+            </button>
             <h2>Enquiry Form</h2>
             <p className="mobile-enquiry-note">
               Services available in Nashik and Dhule city.
@@ -148,13 +181,6 @@ function MobileEnquiryWidget() {
               </select>
 
               <button type="submit">Submit Enquiry</button>
-              <button
-                type="button"
-                className="mobile-enquiry-close"
-                onClick={() => setShowForm(false)}
-              >
-                Close
-              </button>
             </form>
           </div>
         </div>

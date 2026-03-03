@@ -89,14 +89,15 @@ function About() {
             className="d-flex justify-content-center text-center order-1 order-md-1"
             data-aos="fade-right"
           >
-            <img
-              src={require("../Images/shk.jpg")}
-              alt="Founder & CEO"
-              className="img-fluid rounded-circle shadow"
-              loading="lazy"
-              decoding="async"
-              style={{ maxWidth: "350px", margin: "0 auto", display: "block" }}
-            />
+            <div className="ceo-photo-frame">
+              <img
+                src={require("../Images/shk.jpg")}
+                alt="Founder & CEO"
+                className="img-fluid rounded-3 shadow ceo-photo"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </Col>
 
           <Col md={6} sm={12} className="order-2 order-md-2" data-aos="fade-left">

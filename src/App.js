@@ -6,6 +6,7 @@ import Footer from "./Pages/Footer";
 
 import ScrollToTop from "./Components/ScrollToTop";
 import MobileEnquiryWidget from "./Components/MobileEnquiryWidget";
+import PageLoader from "./Components/PageLoader";
 
 const Home = lazy(() => import("./Pages/Home"));
 const About = lazy(() => import("./Pages/About"));
@@ -18,7 +19,7 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <WebNavbar />
-        <Suspense fallback={<div className="route-loading">Loading...</div>}>
+        <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/About" element={<About />}></Route>

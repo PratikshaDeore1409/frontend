@@ -101,7 +101,7 @@ function Services() {
         />
       </div>
 
-      <section className="services-section py-5">
+      <section className="services-section">
         <Container>
           <h2 className="text-center mb-4 fw-bold" data-aos="fade-up">
             Our Services
@@ -111,7 +111,7 @@ function Services() {
             {SERVICES.map((service, index) => (
               <Row
                 key={service.title}
-                className="service-feature-row align-items-center g-4"
+                className="service-feature-row align-items-center g-3"
                 data-aos="fade-up"
                 data-aos-delay={index * 80}
               >

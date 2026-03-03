@@ -1,7 +1,37 @@
-.route-loading {
-  min-height: 30vh;
+.page-loader {
+  min-height: 52vh;
   display: grid;
   place-items: center;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  align-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 24px;
+}
+
+.page-loader-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid #d7e6fb;
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: pageLoaderSpin 0.9s linear infinite;
+}
+
+.page-loader-text {
+  margin: 0;
+  font-size: var(--text-sm);
   color: #4b5563;
+  letter-spacing: 0.2px;
+}
+
+@keyframes pageLoaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader-spinner {
+    animation: none;
+  }
 }

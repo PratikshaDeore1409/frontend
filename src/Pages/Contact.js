@@ -77,7 +77,7 @@ function Contact() {
       </div>
 
       <Container className="my-5 contact-section">
-        <Row className="align-items-center p-5">
+        <Row className="align-items-center contact-main-row">
           <Col md={6} sm={12} data-aos="fade-up">
             <h2>Contact Information</h2>
             {CONTACT_PAGE_DETAILS.map((item) => (

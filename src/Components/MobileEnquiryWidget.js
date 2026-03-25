@@ -40,11 +40,7 @@ function MobileEnquiryWidget() {
   useEffect(() => {
     if (!isMobile) {
       setShowForm(false);
-      return;
     }
-
-    // Auto-open on every fresh visit/reload for mobile users.
-    setShowForm(true);
   }, [isMobile]);
 
   useEffect(() => {

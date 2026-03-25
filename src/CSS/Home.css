@@ -66,6 +66,10 @@
   backdrop-filter: blur(8px);
 }
 
+.callback-form form {
+  display: grid;
+  gap: 10px;
+}
 .callback-form h2 {
   margin-bottom: 0.8rem;
   font-size: var(--text-lg);
@@ -124,7 +128,7 @@
 /* Sections */
 .services-section {
   padding: 40px 20px;
-  background-color: #98c4f4;
+  background-color: var(--bg-light);
 }
 
 .service-card {
@@ -201,6 +205,8 @@
   background-color: var(--bg-light);
   border-radius: 0;
   padding: clamp(2rem, 4vw, 3.8rem) 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .ceo-info h2,
@@ -241,7 +247,7 @@
   margin: 8px auto;
   background: #fff;
   width: 100%;
-  max-width: 250px;
+  max-width: 300px;
   min-height: 200px;
 }
 
@@ -440,8 +446,11 @@
   }
 
   .why-img {
-    max-width: 320px;
-    margin-bottom: 8px;
+    max-width: 280px;
+    padding: 6px;
+    border: 1px solid #d5e3f6;
+    background: #fff;
+    margin: 0 auto 4px;
   }
 
   .rightcol {
@@ -458,6 +467,7 @@
   .ceo-section,
   .team-section {
     text-align: center;
+    margin-bottom: 1.5rem;
   }
 
   .ceo-section-title {
@@ -482,5 +492,26 @@
 
   .ceo-info {
     margin-top: 30px;
+  }
+
+  /* tighten gap between CEO and Team sections on mobile */
+  .ceo-section {
+    padding-bottom: 1.2rem;
+  }
+
+  .team-section {
+    padding-top: 1.2rem;
+  }
+
+  .work-img {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    padding: 6px;
+    border: 1px solid #d5e3f6;
+    background: #fff;
+    box-sizing: border-box;
+    margin: 0 auto 4px;
   }
 }

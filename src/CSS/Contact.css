@@ -93,10 +93,10 @@
 
 .contact-item {
   display: grid;
-  grid-template-columns: 24px 120px minmax(0, 1fr);
-  align-items: center;
+  grid-template-columns: 22px 120px minmax(0, 1fr);
+  align-items: start;
   column-gap: 10px;
-  row-gap: 2px;
+  row-gap: 6px;
   text-align: left;
 }
 
@@ -211,8 +211,9 @@
   }
 
   .contact-item {
-    grid-template-columns: 22px 96px minmax(0, 1fr);
+    grid-template-columns: 20px 110px minmax(0, 1fr);
     column-gap: 8px;
+    row-gap: 8px;
   }
 
   .contact-icon {

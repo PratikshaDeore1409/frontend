@@ -3,7 +3,7 @@ import { FiClock, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 export const CONTACT_INFO = {
   address: "3, Trimurty society, Deopur, Dhule",
   phone: "+91 9373119075, +91 7058325196",
-  email: "info@healthcare.com",
+  email: "sharadaenterprises4405@gmail.com",
   workingHours: "Mon - Sat, 9:00 AM - 7:00 PM",
 };
 

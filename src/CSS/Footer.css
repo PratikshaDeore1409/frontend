@@ -140,8 +140,27 @@
     justify-content: center;
   }
 
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+    justify-items: center;
+    max-width: 360px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .footer-links li {
+    margin-bottom: 4px;
+  }
+
   .footer-links a {
     justify-content: center;
+    padding-left: 0;
+  }
+
+  .footer-links a:before {
+    display: none;
   }
 
   .footer-contact-item {

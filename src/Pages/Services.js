@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import "../CSS/Home.css";
 import "../CSS/Services.css";
 import backgroundImage from "../Images/services.jpeg";
 
@@ -85,20 +86,19 @@ function Services() {
 
   return (
     <>
-      <div
-        className="home-container"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      >
-        <div className="home-text" data-aos="fade-right">
-          <h1 className="custom-heading">Devoted to endless care</h1>
-          <p className="my-2">Dedicated to safety</p>
-        </div>
+      <div className="services-hero" style={{ backgroundImage: `url(${backgroundImage})` }}>
+        <div className="services-hero-inner">
+          <div className="home-text" data-aos="fade-right">
+            <h1 className="custom-heading">Devoted to endless care</h1>
+            <p className="my-2">Dedicated to safety</p>
+          </div>
 
-        <EnquiryForm
-          formData={formData}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        />
+          <EnquiryForm
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
+        </div>
       </div>
 
       <section className="services-section">
